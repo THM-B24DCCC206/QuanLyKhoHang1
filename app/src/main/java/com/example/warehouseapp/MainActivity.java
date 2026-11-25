@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Màn hình chính hiển thị thống kê kho và danh sách sản phẩm từ SQLite.
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_PRODUCT_ID = "product_id";
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Tải lại danh sách và thống kê mỗi khi quay lại từ màn hình thêm hoặc chi tiết
         loadProductsAndStats();
     }
 

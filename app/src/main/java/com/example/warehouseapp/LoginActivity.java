@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Màn hình đăng nhập đầu tiên, đối chiếu tài khoản với bảng users trong SQLite.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtUsername;
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             tvError.setVisibility(View.GONE);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
+            // Đóng LoginActivity để nút Back không quay lại màn hình đăng nhập
             finish();
         } else {
             tvError.setText(R.string.error_wrong_login);

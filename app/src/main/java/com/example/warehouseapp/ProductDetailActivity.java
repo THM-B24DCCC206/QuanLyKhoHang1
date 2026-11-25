@@ -13,6 +13,9 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
+/**
+ * Màn hình chi tiết sản phẩm, cho phép nhập hàng, bán hàng hoặc xóa khỏi kho.
+ */
 public class ProductDetailActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
@@ -107,6 +110,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         if (currentProduct == null) {
             return;
         }
+        // Chặn giảm khi tồn kho đã về 0
         if (currentProduct.getQuantity() <= 0) {
             Toast.makeText(this, R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
             return;

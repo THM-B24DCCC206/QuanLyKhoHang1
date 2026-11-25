@@ -14,6 +14,9 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
+/**
+ * Màn hình nhập thông tin, kiểm tra hợp lệ và lưu sản phẩm mới vào SQLite.
+ */
 public class AddProductActivity extends AppCompatActivity {
 
     private TextInputLayout tilName;

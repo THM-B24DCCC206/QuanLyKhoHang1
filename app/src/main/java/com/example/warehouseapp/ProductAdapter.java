@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Adapter hiển thị danh sách sản phẩm lên RecyclerView kèm cảnh báo sắp hết hàng.
+ */
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     public interface OnProductClickListener {
@@ -73,6 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvPrice.setText("Giá bán: " + CurrencyUtils.formatVnd(product.getPrice()));
             tvCategory.setText(product.getCategory());
 
+            // Tô đỏ số lượng và bật nhãn cảnh báo nếu tồn kho dưới ngưỡng quy định
             boolean isLowStock = product.getQuantity() < DatabaseHelper.LOW_STOCK_THRESHOLD;
             int qtyColor = ContextCompat.getColor(
                     itemView.getContext(),

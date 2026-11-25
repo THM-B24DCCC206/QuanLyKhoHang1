@@ -1,5 +1,8 @@
 package com.example.warehouseapp;
 
+/**
+ * Lớp mô hình (Model) biểu diễn một sản phẩm trong kho hàng.
+ */
 public class Product {
     private int id;
     private String name;

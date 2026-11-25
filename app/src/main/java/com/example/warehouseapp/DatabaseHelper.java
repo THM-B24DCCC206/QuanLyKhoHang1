@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+/**
+ * Lớp quản lý cơ sở dữ liệu SQLite (warehouse.db) gồm bảng users và products.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "warehouse.db";
@@ -51,6 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createUsersTable);
         db.execSQL(createProductsTable);
 
+        // Chèn tài khoản mẫu và 3 sản phẩm mẫu khi khởi tạo database lần đầu
         insertUserInternal(db, "admin", "123456");
         insertProductInternal(db, new Product("Chuột không dây", 150000, 20, "Điện tử", true, "Chuột không dây kết nối 2.4GHz nhỏ gọn"));
         insertProductInternal(db, new Product("Bàn phím cơ", 450000, 3, "Điện tử", true, "Bàn phím cơ switch xanh, có đèn nền"));
@@ -64,6 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Kiểm tra thông tin đăng nhập bằng câu truy vấn có tham số trên bảng users.
+     */
     public boolean checkLogin(String username, String password) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
@@ -83,6 +90,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Thêm tài khoản mới vào bảng users.
+     */
     public long insertUser(String username, String password) {
         SQLiteDatabase db = getWritableDatabase();
         return insertUserInternal(db, username, password);
@@ -95,6 +105,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_USERS, null, values);
     }
 
+    /**
+     * Thêm sản phẩm mới vào bảng products và trả về id vừa tạo.
+     */
     public long insertProduct(Product p) {
         SQLiteDatabase db = getWritableDatabase();
         return insertProductInternal(db, p);
@@ -111,6 +124,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_PRODUCTS, null, values);
     }
 
+    /**
+     * Lấy toàn bộ danh sách sản phẩm trong kho sắp xếp theo thứ tự tăng dần của id.
+     */
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
@@ -133,6 +149,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    /**
+     * Truy vấn thông tin một sản phẩm theo id.
+     */
     public Product getProductById(int id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
@@ -155,6 +174,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Cập nhật số lượng tồn kho của sản phẩm theo id.
+     */
     public int updateQuantity(int id, int quantity) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -167,6 +189,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
+    /**
+     * Xóa sản phẩm khỏi cơ sở dữ liệu theo id.
+     */
     public int deleteProduct(int id) {
         SQLiteDatabase db = getWritableDatabase();
         return db.delete(
@@ -176,6 +201,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
+    /**
+     * Tính tổng giá trị hàng hóa trong kho: SUM(price * quantity).
+     */
     public long getTotalValue() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
@@ -195,6 +223,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Đếm số lượng sản phẩm sắp hết hàng (quantity < 5).
+     */
     public int countLowStock() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
